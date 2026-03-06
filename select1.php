@@ -7,7 +7,9 @@
 <body>
     <?php
     require "connect.php";
-    $sql = "SELECT * FROM customer";
+    $sql = "SELECT customer.CustomerID, customer.Name, customer.Birthdate, customer.Email, country.CountryName, customer.OutstandingDebt FROM customer
+            INNER JOIN country ON country.CountryCode = customer.CountryCode 
+            WHERE customer.CountryCode='TH';";
 
     $stmt = $conn->prepare($sql);
     $stmt->execute();
@@ -53,7 +55,7 @@
                     <?php echo $result["Email"]; ?>
                 </td>
                 <td>
-                    <?php echo $result["CountryCode"]; ?>
+                    <?php echo $result["CountryName"]; ?>
                 </td>
                 <td>
                     <?php echo $result["OutstandingDebt"]; ?>
@@ -64,6 +66,7 @@
         ?>
     </table>
     <?php $conn = null; ?>
+
 </body>
 
 </html>
